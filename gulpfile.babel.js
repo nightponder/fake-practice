@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 import gulp from 'gulp'
+import connect from 'gulp-connect'
 
 // Load all gulp plugins automatically
 // and attach them to the `plugins` object
@@ -165,6 +166,32 @@ gulp.task('lint:js', () =>
       .pipe(plugins().jshint.reporter('fail'))
 )
 
+gulp.task('connect', () =>
+    connect.server({
+      root: 'dist',
+      port: 8080,
+      fallback: 'dist/404.html'
+    })
+)
+
+gulp.task('watch', () =>
+    gulp.watch(`${dirs.src}/**/*`, ({path, type}) => {
+      // console.log(`File ${path} ${type}`)
+      const re = new RegExp(`^${__dirname}\/${dirs.src}(.*)\/([^/]+)$`)
+      const matched = path.match(re)
+      const dist = `${dirs.dist}${matched[1]}`
+      const filename = matched[2]
+      switch (filename) {
+        case 'index.html':
+          runSequence('copy:index.html')
+          break
+        default:
+          gulp.src(path)
+                  .pipe(gulp.dest(dist))
+      }
+    })
+)
+
 // ---------------------------------------------------------------------
 // | Main tasks                                                        |
 // ---------------------------------------------------------------------
@@ -183,5 +210,7 @@ gulp.task('build', (done) => {
         'copy', 'modernizr',
     done)
 })
+
+gulp.task('serve', ['build', 'watch', 'connect'])
 
 gulp.task('default', ['build'])
