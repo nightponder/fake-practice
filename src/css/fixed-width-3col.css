@@ -1,0 +1,58 @@
+html,body{margin:0;padding:0}
+
+/* layout */
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+.main, .navigation, .extra {
+  float: left;
+}
+.navigation {
+  width: 150px;
+  margin-left: -800px;
+}
+.extra {
+  width: 150px;
+  margin-left: -150px;
+}
+.content {
+  margin: 0 150px;
+}
+.footer {
+  clear: left;
+}
+
+/* colors */
+.header {
+  background: #27566D;
+  color: #fff;
+}
+.navigation {
+  background: #55859C;
+}
+.extra, .footer {
+  background: #ACD6EA;
+}
+
+/* fonts */
+body {
+  font-family: sans-serif;
+}
+
+/* margin & padding */
+.header {
+  padding: 0 15px;
+}
+.header h1 {
+  height: 80px;
+  line-height: 80px;
+  margin: 0;
+}
+.footer {
+  padding: 15px;
+  clear: left;
+}
+
+/* typo */
+p{margin:0 10px 10px}
